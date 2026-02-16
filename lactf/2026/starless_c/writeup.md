@@ -116,12 +116,15 @@ After verifying this information by analyzing more WASD and `f` options and look
 `starless_c` uses the user's input of `w`, `a`, `s`, `d`, and `f` to navigate through a series of logic checks. Each of these checks may swap 4 bytes present in one function for 4 bytes in another if a NOP is present at a given address. Because these bytes are either NOP bytes or segfault-causing bytes, we have the chance to either patch a segfault or introduce one. At any point, the user can enter `f` to jump through a series of functions to print the flag, but only if there are no segfault-causing bytes present. Thus, the user has to input the correct amount of `w`, `a`, `s`, `d`, and `f` inputs in the correct order to navigate the path to properly patch segfault-causing bytes to print the flag.
 
 
-## Background Information
+## Solution
 
-## Exploitation
+Just one quick look at the binary will show that are a ton of WASD and `f` crossroads, so, this challenge can't be solved by manually going through all of the options. During the competition, I asked myself how to proceed with automating the solution. One way is to write a script, but I wasn't quite sure how to manage checking memory locations and traversing the paths of execution. Another way is to use AI, which would be the faster method during the competition.
+
+I didn't use AI at all during the initial stages of this challenge because I truly thought it would not be able to grasp the complexity of the program and be able to solve it. But, I decided to give it a shot. I fed Codex (using GPT-5.3-Codex) a short prompt describing the challenge, and after 30 minutes of reprompting it continuously failed to produce a correct answer. I started fresh with a longer, more descriptive prompt... and Codex failed again. In my final attempt, I provided Codex my notes on the binary and how I would go about solving the problem if I did it manually. And I couldn't believe it -- it worked! My prompt can be found in `prompt.txt`. 
 
 ## Remediation
 
+This is your classic CTF reversing challenge that involves solving a little puzzle. However, if we pretend this binary was a piece of malware, reversing the binary can be made harder by using classic malware obfuscation techniques, like anti-reversing, packing, and anti-debugging tricks. Additionally, in the world of AI, using anti-LLM tricks to avoid automated analysis and problem-solving.
 
 # Sources/Credits
 
