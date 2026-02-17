@@ -1,4 +1,4 @@
-# LA CTF: rev/starless_c
+# LA CTF 2026: rev/starless_c
 
 ## Context 
 
@@ -120,7 +120,22 @@ After verifying this information by analyzing more WASD and `f` options and look
 
 Just one quick look at the binary will show that are a ton of WASD and `f` crossroads, so, this challenge can't be solved by manually going through all of the options. During the competition, I asked myself how to proceed with automating the solution. One way is to write a script, but I wasn't quite sure how to manage checking memory locations and traversing the paths of execution. Another way is to use AI, which would be the faster method during the competition.
 
-I didn't use AI at all during the initial stages of this challenge because I truly thought it would not be able to grasp the complexity of the program and be able to solve it. But, I decided to give it a shot. I fed Codex (using GPT-5.3-Codex) a short prompt describing the challenge, and after 30 minutes of reprompting it continuously failed to produce a correct answer. I started fresh with a longer, more descriptive prompt... and Codex failed again. In my final attempt, I provided Codex my notes on the binary and how I would go about solving the problem if I did it manually. And I couldn't believe it -- it worked! My prompt can be found in `prompt.txt`. 
+I didn't use AI at all during the initial stages of this challenge because I truly thought it would not be able to grasp the complexity of the program and be able to solve it. But, I decided to give it a shot. I fed Codex (using GPT-5.3-Codex) a short prompt describing the challenge, and after 30 minutes of reprompting it continuously failed to produce a correct answer. I started fresh with a longer, more descriptive prompt... and Codex failed again. In my final attempt, I provided Codex my notes on the binary and how I would go about solving the problem if I did it manually. And I couldn't believe it -- it worked! My prompt can be found in `prompt.txt`. The solution steps are as follows:
+
+```
+sddddswaasdwaaasdssawwdwddsawasassdddwsddwasaaaawwdwdddsawaasassdddwwdwasssaaawwdwwassdddssddwasaaawwddwdsaaawdsassddwsddwawaawasdddssawdwaaddwaaf
+```
+
+The last step is to feed the solution steps into the netcat server. I generated a script (`feed_to_nc.py`) using Codex to do this, but it would be easy to do manually as well. Running the script, we can acquire the flag.
+
+```
+mmstoic@server:~/personal/tmp$ ./starless_c
+There is a flag in the binary.
+  (The flag is a metaphor but also still a flag.)
+  (The binary could rightly be considered a gimmick.)
+A person this far into a challenge has their path to follow. There were many paths, once, in a time that is past, lost many bytes and pages ago. Now there is only one path for you to choose. The path that leads to the flag.
+lactf{starless_c_more_like_starless_0xcc}
+```
 
 ## Remediation
 
