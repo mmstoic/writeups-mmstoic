@@ -1,8 +1,8 @@
-# LA CTF 2026: rev/starless_c
+# LA CTF 2026: rev/starless-c
 
 ## Context 
 
-`starless_c` is an excellent reverse engineering challenge written by aplet123 in LA CTF 2026. It requires classic reverse engineering skills in a complex context, combining careful analysis with the familiarity of WASD controls. 
+`starless-c` is an excellent reverse engineering challenge written by aplet123 in LA CTF 2026. It requires classic reverse engineering skills in a complex context, combining careful analysis with the familiarity of WASD controls. 
 
 We are given a binary, `starless_c`, a netcat server to connect to in order to retrieve the flag, and a short description:
 
@@ -113,7 +113,7 @@ Before we make a conclusion about what's happening here, let's take a look at th
 
 After verifying this information by analyzing more WASD and `f` options and looking at cross-references of various segfault-containing functions, we may draw the following conclusion about what the binary is doing:
 
-`starless_c` uses the user's input of `w`, `a`, `s`, `d`, and `f` to navigate through a series of logic checks. Each of these checks may swap 4 bytes present in one function for 4 bytes in another if a NOP is present at a given address. Because these bytes are either NOP bytes or segfault-causing bytes, we have the chance to either patch a segfault or introduce one. At any point, the user can enter `f` to jump through a series of functions to print the flag, but only if there are no segfault-causing bytes present. Thus, the user has to input the correct amount of `w`, `a`, `s`, `d`, and `f` inputs in the correct order to navigate the path to properly patch segfault-causing bytes to print the flag.
+`starless-c` uses the user's input of `w`, `a`, `s`, `d`, and `f` to navigate through a series of logic checks. Each of these checks may swap 4 bytes present in one function for 4 bytes in another if a NOP is present at a given address. Because these bytes are either NOP bytes or segfault-causing bytes, we have the chance to either patch a segfault or introduce one. At any point, the user can enter `f` to jump through a series of functions to print the flag, but only if there are no segfault-causing bytes present. Thus, the user has to input the correct amount of `w`, `a`, `s`, `d`, and `f` inputs in the correct order to navigate the path to properly patch segfault-causing bytes to print the flag.
 
 
 ## Solution
