@@ -63,15 +63,15 @@ With some strings to search for, we can begin our advanced static analysis in ID
 
 Immediately we see why our strings looked weird earlier: the binary is using a common obfuscation technique known as stack string obfuscation. Instead of writing the desired string in a `char*`, for example, the equivalent ASCII values of each letter are pushed onto the stack and get written out instead.
 
-![Alt text](images/stack_string)
+![Stack string ofbuscation examples](images/stack_string.png)
 
 This means that we can't just search for some text inside of the binary; we have to use the corresponding ASCII values instead. For example, to find where "flag.txt" resides in the file, we must instead search for `7478742E67616C66` or a subset like `7478742E` (".txt") (note the little endian ordering).
 
 Putting this subset into the "Search for Sequence of Bytes" in IDA leads us to this section of the binary where we see another form of obfuscation taking place. Code is being interpreted as data. By pressing `c` we can transform the section into code and see specifically where the ".txt" bytes are.
 
-![Alt text](images/code_as_data1)
+![Code as data example](images/code_as_data1.png)
 
-![Alt text](images/code_as_data1_after)
+![Code as data after making into code example](images/code_as_data1_after.png)
 
 We see this is the section of the binary that gives us the flag and prints a success message:
 
@@ -95,19 +95,19 @@ We should also take note of where each WASD option jumps to. Sometimes, it leads
 
 Let's take a closer look at addresses that are inspected for NOP bytes, like the function at `LOAD:000000006767A000`:
 
-![Alt text](images/example_function)
+![Example function](images/example_function.png)
 
 We see the presence of `0088C031`, and if turned into code, it is indeed the seg fault-causing instructions.
 
-![Alt text](images/example_function_code)
+![Examle function code](images/example_function_code.png)
 
 We see another example at the function at `LOAD:000000006768A000`, which starts with NOP bytes instead of the segfault bytes. 
 
-![Alt text](images/nop_function)
+![nop function](images/nop_function.png)
 
 By further analyzing using cross-references, we can see that this NOP function's bytes are subject to being replaced with segfault-causing bytes during the code logic (see the `﻿﻿mov     dword ptr cs:loc_6768A000, 88C031h`, for example):
 
-![Alt text](images/xrefs)
+![Cross references](images/xrefs.png)
 
 Before we make a conclusion about what's happening here, let's take a look at the `f` option present among every WASD crossroads. Every time `f` is pressed, we jump to a function at `LOAD:000000006767A000` which contains segfault bytes. That function then jumps to a function at `LOAD:0000000067682000` which also contains seg fault bytes, which then jumps to a function at `LOAD:000000006768A000` which, as we saw earlier, contains NOP bytes. This function then jumps to `LOAD:0000000067691000`, which contains more seg fault bytes, and then jumps to `LOAD:0000000067692000`, which contains more seg fault bytes, and then finally jumps to our flag-printing function we found earlier. So: we have a series of 5 function calls that all contain segfault-causing bytes except for one. This means that if we try to execute the `f` option before these segfault-causing bytes are patched, we will just get the error message.
 
