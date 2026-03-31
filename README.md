@@ -1,7 +1,7 @@
 # mmstoic-writeups
 A collection of my CTF writeups.
 
-### Pwn College
+### Pwn College (not shown)
 - Advent of Pwn 2025: Day 2
 - Advent of Pwn 2025: Day 3
 - Advent of Pwn 2025: Day 4
