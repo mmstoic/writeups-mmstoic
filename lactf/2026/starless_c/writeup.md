@@ -61,11 +61,7 @@ With some strings to search for, we can begin our advanced static analysis in ID
 
 ## Advanced Static Analysis in IDA
 
-Immediately we see why our strings looked weird earlier: the binary is using a common obfuscation technique known as stack string obfuscation. Instead of writing the desired string in a `char*`, for example, the equivalent ASCII values of each letter are pushed onto the stack and get written out instead.
-
-![Stack string ofbuscation examples](images/stack_string.png)
-
-This means that we can't just search for some text inside of the binary; we have to use the corresponding ASCII values instead. For example, to find where "flag.txt" resides in the file, we must instead search for `7478742E67616C66` or a subset like `7478742E` (".txt") (note the little endian ordering).
+Immediately we see why our strings looked weird earlier: the binary is using a common obfuscation technique known as stack string obfuscation. Instead of writing the desired string in a `char*`, for example, the equivalent ASCII values of each letter are pushed onto the stack and get written out instead. This means that we can't just search for some text inside of the binary; we have to use the corresponding ASCII values instead. For example, to find where "flag.txt" resides in the file, we must instead search for `7478742E67616C66` or a subset like `7478742E` (".txt") (note the little endian ordering).
 
 Putting this subset into the "Search for Sequence of Bytes" in IDA leads us to this section of the binary where we see another form of obfuscation taking place. Code is being interpreted as data. By pressing `c` we can transform the section into code and see specifically where the ".txt" bytes are.
 
