@@ -1,7 +1,7 @@
 # mmstoic-writeups
 A collection of my CTF writeups.
 
-### Pwn College (not shown)
+### Pwn College (not publicly available)
 - Advent of Pwn 2025: Day 2
 - Advent of Pwn 2025: Day 3
 - Advent of Pwn 2025: Day 4
@@ -14,7 +14,13 @@ A collection of my CTF writeups.
 - orion-override
 
 ### LACTF
-- mavs-fan
+- 2025: mavs-fan
+- 2026: starless-c
+
+### UMASS CTF
+- 2026: Batcave Bitflips (/batcave)
+
+
 
 ### PicoCTF
 #### Web
