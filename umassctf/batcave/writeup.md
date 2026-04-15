@@ -47,7 +47,7 @@ VERIFYING...
 INVALID LICENSE - PLEASE CONTACT ALFRED
 ```
 
-Past "license-checking" challenges I've done have always involved looking into some kinds of crypto, so I kept that in mind as I put the file into IDA.
+Past "license-checking" challenges I've done have always involved looking into some kind of crypto, so I kept that in mind as I put the file into IDA.
 
 ## Advanced Static Analysis in IDA
 
@@ -181,6 +181,7 @@ Firstly, the shift left that happens in `rotate()` at address 0x1275 isn't just 
 * 01 = 2
 * 10 = 4
 * 11 = 8
+
 To change our shifting from 3 to 2, we need to change the scale from 8 to 4. So, instead of C5, we get 0b10000101 = 0x85. Basically, to patch this shift left from <<3 to <<2, we change the bytes for the instruction to `8D 14 85 00 00 00 00`.
 
 See [this link](https://wiki.osdev.org/X86-64_Instruction_Encoding) for more information on instruction encoding!
